@@ -1,8 +1,11 @@
 package JDBC;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserRegistration {
 	private testConnection dbConnection;
@@ -62,6 +65,66 @@ public class UserRegistration {
             return false;
 		}
     }
+    
+    public boolean updateUserInfo(String username, String newNickname) {
+        try (Connection connection = dbConnection.getConnection();
+             PreparedStatement updateStmt = connection.prepareStatement("UPDATE UserInfo SET nickname = ? WHERE uid = ?")) {
+            
+            updateStmt.setString(1, newNickname);
+            updateStmt.setString(2, username);
+
+            int rowsAffected = updateStmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("User information updated successfully!");
+                return true;
+            } else {
+                System.out.println("Failed to update user information.");
+                return false;
+            }
+
+        } catch (SQLException e) {
+            // 记录日志或抛出自定义异常
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<News> getNewsList() {
+        List<News> newsList = new ArrayList<>();
+
+        try (Connection connection = dbConnection.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM NewsContent ORDER BY release_datetime DESC LIMIT 10");
+             ResultSet resultSet = pstmt.executeQuery()) {
+
+            while (resultSet.next()) {
+                int newsId = resultSet.getInt("news_id");
+                String title = resultSet.getString("title");
+                String coverImageUrl = resultSet.getString("cover_image_url");
+                String releaseDatetime = resultSet.getString("release_datetime");
+                String author = resultSet.getString("author");
+                String newsText = resultSet.getString("news_text");
+                int viewsCount = resultSet.getInt("views_count");
+                int favoritesCount = resultSet.getInt("favorites_count");
+                int sharesCount = resultSet.getInt("shares_count");
+                boolean paidPromotionFlag = resultSet.getBoolean("paid_promotion_flag");
+
+                News news = new News(newsId, title, coverImageUrl, releaseDatetime, author, newsText,
+                        viewsCount, favoritesCount, sharesCount, paidPromotionFlag);
+                newsList.add(news);
+            }
+
+        } catch (SQLException e) {
+            // 打印异常信息或者记录日志
+            e.printStackTrace();
+            // 或者抛出一个自定义异常，表示获取新闻列表失败
+            throw new RuntimeException("Failed to fetch news list", e);
+        }
+
+        return newsList;
+    }
+
+    
     public static void main(String[] args) {
     	UserRegistration userRegistration = new UserRegistration();
     	System.out.println(userRegistration.loginUser("user@gmail.com","123456"));
@@ -69,4 +132,3 @@ public class UserRegistration {
 
     }
 }
-
