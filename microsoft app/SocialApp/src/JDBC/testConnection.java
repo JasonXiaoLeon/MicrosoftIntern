@@ -41,7 +41,7 @@ public class testConnection {
 	                    e.printStackTrace();
 	                }
 	            }
-		    }
+		}
 	}
 	    // 获取数据库连接的方法
 	    public Connection getConnection() throws SQLException {
