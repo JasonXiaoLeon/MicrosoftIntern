@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- Press bean definition -->
+    <bean id="press" class="com.example.demo.week2.Press">
+        <constructor-arg name="newsId" type="int" value="1"/>
+        <constructor-arg name="title" type="java.lang.String" value="Sample Press Title"/>
+        <constructor-arg name="coverImageUrl" type="java.lang.String" value="sample-cover-image.jpg"/>
+        <constructor-arg name="releaseDatetime" type="java.lang.String" value="2022-01-01 12:00:00"/>
+        <constructor-arg name="author" type="java.lang.String" value="John Doe"/>
+        <constructor-arg name="newsText" type="java.lang.String" value="Sample Press Text"/>
+        <constructor-arg name="viewsCount" type="int" value="100"/>
+        <constructor-arg name="favoritesCount" type="int" value="50"/>
+        <constructor-arg name="sharesCount" type="int" value="30"/>
+        <constructor-arg name="paidPromotionFlag" type="boolean" value="false"/>
+    </bean>
+
+    <!-- Define the Ad bean -->
+    <bean id="ad" class="com.example.demo.week2.Ad">
+        <constructor-arg name="adId" type="int" value="0"/>
+        <constructor-arg name="adIdentifier" type="java.lang.String" value=""/>
+        <constructor-arg name="title" type="java.lang.String" value=""/>
+        <constructor-arg name="content" type="java.lang.String" value=""/>
+        <constructor-arg name="imageUrl" type="java.lang.String" value=""/>
+        <constructor-arg name="placement" type="com.example.demo.week2.Ad$AdPlacement" value="SPLASH"/>
+        <constructor-arg name="advertiserIdentifier" type="java.lang.String" value=""/>
+        <constructor-arg name="startDate" type="java.lang.String" value=""/>
+        <constructor-arg name="endDate" type="java.lang.String" value=""/>
+        <constructor-arg name="regionRestrictions" type="java.lang.String" value=""/>
+        <constructor-arg name="deviceRestrictions" type="java.lang.String" value=""/>
+        <constructor-arg name="clicksCount" type="int" value="0"/>
+        <constructor-arg name="impressionsCount" type="int" value="0"/>
+        <constructor-arg name="deliveryWeight" type="int" value="1"/>
+    </bean>
+
+
+    <!-- Define the Comment bean -->
+    <bean id="comment" class="com.example.demo.week2.Comment">
+        <constructor-arg name="userId" type="java.lang.String" value="sampleUserId"/>
+        <constructor-arg name="commentId" type="int" value="1"/>
+        <constructor-arg name="newsId" type="int" value="1"/>
+        <constructor-arg name="commentText" type="java.lang.String" value="Sample Comment Text"/>
+        <constructor-arg name="commentTime" type="java.lang.String" value="2022-01-01T12:00:00"/>
+        <constructor-arg name="referencedCommentId" type="int" value="0"/>
+        <constructor-arg name="likesCount" type="int" value="0"/>
+        <constructor-arg name="dislikesCount" type="int" value="0"/>
+    </bean>
+
+</beans>
